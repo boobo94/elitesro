@@ -1,16 +1,77 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { Star, Sparkles, ClipboardList, Truck, PartyPopper } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/constants";
-import { eventServiceSchema, safeStringify } from "@/lib/jsonld";
+import { eventServiceSchema, faqPageSchema, safeStringify } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
-  title: "Organizare Evenimente Private & Petreceri București, Ilfov",
+  title: "Organizare Evenimente Private București & Ilfov | Elites Events",
   description:
-    "Organizăm evenimente private de neuitat — aniversări, petreceri și reuniuni în București, Ilfov, Pitești și Ploiești. Mobilier, corturi, DJ și logistică completă.",
+    "Organizare evenimente private și petreceri în București și Ilfov. Închiriere logistică completă: cocktail bar, sonorizare DJ, mobilier și corturi. Cere ofertă!",
   alternates: { canonical: "/evenimente/private/" },
 };
+
+const privatePackages = [
+  {
+    name: "Intim",
+    guests: "până la 40 invitați",
+    content:
+      "Aniversări de familie, majorat sau reuniuni restrânse în curte, apartament sau grădină.",
+    items: [
+      "Mobilier lounge sau mese și scaune",
+      "Iluminat decorativ ambiental",
+      "Sistem audio compact + microfon",
+    ],
+  },
+  {
+    name: "Standard",
+    guests: "40–80 invitați",
+    content:
+      "Petreceri tematice sau aniversări mai ample, în curte privată, terasă sau sală închiriată.",
+    items: [
+      "Cort sau structură pentru outdoor",
+      "Mobilier complet + veselă și tacâmuri",
+      "DJ și sistem audio profesional",
+      "Cabina foto cu imprimare instantă",
+    ],
+  },
+  {
+    name: "Deluxe",
+    guests: "80–150+ invitați",
+    content:
+      "Petreceri de lux și evenimente exclusiviste care cer execuție la nivel de nuntă sau eveniment corporate.",
+    items: [
+      "Cort premium + podea și încălzire/climatizare",
+      "Mobilier de design și decor complet",
+      "Cocktail bar cu barman profesionist",
+      "DJ curator, iluminat scenic și cabina foto",
+    ],
+  },
+];
+
+const privateProcess = [
+  {
+    icon: ClipboardList,
+    title: "1. Consultare",
+    text: "Ne spui tipul de petrecere, numărul de invitați, locația și bugetul orientativ.",
+  },
+  {
+    icon: Sparkles,
+    title: "2. Ofertă personalizată",
+    text: "Îți trimitem o propunere clară, fără costuri ascunse, adaptată exact nevoilor tale.",
+  },
+  {
+    icon: Truck,
+    title: "3. Livrare și montaj",
+    text: "Montăm din timp echipamentele, astfel încât totul să fie gata înainte de sosirea invitaților.",
+  },
+  {
+    icon: PartyPopper,
+    title: "4. Evenimentul tău",
+    text: "Te bucuri de petrecere, iar noi ne ocupăm de demontaj și ridicare la final.",
+  },
+];
 
 const privateFaqs = [
   {
@@ -28,6 +89,22 @@ const privateFaqs = [
   {
     q: "Puteți organiza un eveniment privat într-un parc sau spațiu public?",
     a: "Da, avem experiență cu evenimente în parcuri și spații publice. În aceste cazuri, avem nevoie de acordul administratorului spațiului și de verificări tehnice suplimentare (sursă de energie, acces, autorizații).",
+  },
+  {
+    q: "Cât costă organizarea unui eveniment privat?",
+    a: "Costul depinde de numărul de invitați, locație, durata evenimentului și serviciile alese — de la un simplu mobilier sau sistem audio, până la un pachet complet cu cort, cocktail bar și DJ. Îți trimitem o ofertă personalizată gratuită, fără obligații, în urma unei scurte discuții.",
+  },
+  {
+    q: "Cu cât timp înainte trebuie să rezerv un eveniment privat?",
+    a: "Recomandăm 2-3 săptămâni pentru servicii individuale (mobilier, sonorizare) și minim 4 săptămâni pentru pachete complete cu cort și logistică extinsă. În perioadele aglomerate (mai–septembrie), rezervarea din timp îți garantează disponibilitatea echipamentelor dorite.",
+  },
+  {
+    q: "Ce include un pachet de petrecere de lux?",
+    a: "O petrecere de lux presupune, de regulă, cocktail bar cu barman profesionist, mobilier de design, iluminat scenic, DJ curator și cabina foto — toate coordonate ca o experiență unitară. Personalizăm fiecare element în funcție de temă, paleta de culori și numărul de invitați.",
+  },
+  {
+    q: "Livrați și în afara Bucureștiului?",
+    a: "Da, deservim în mod curent evenimente private în București, Ilfov, Pitești, Ploiești și Dâmbovița. Pentru locații mai îndepărtate, contactează-ne pentru a verifica disponibilitatea și eventualele costuri de deplasare.",
   },
 ];
 
@@ -47,10 +124,16 @@ export default function PrivatePage() {
             eventServiceSchema({
               name: "Servicii Evenimente Private",
               description:
-                "Organizăm evenimente private de neuitat — aniversări, petreceri și reuniuni în București, Ilfov, Pitești și Ploiești. Mobilier, corturi, DJ și logistică completă.",
+                "Organizare evenimente private și petreceri de lux în București, Ilfov, Pitești și Ploiești. Închiriere logistică completă: cocktail bar, DJ, mobilier și corturi.",
               slug: "private",
             }),
           ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: safeStringify(faqPageSchema(privateFaqs)),
         }}
       />
       <div className="min-h-screen bg-ivory">
@@ -103,6 +186,14 @@ export default function PrivatePage() {
                   sisteme audio, DJ, iluminat ambiental, cocktail bar și cabina
                   foto. Totul coordonat de o singură echipă, cu livrare, montaj
                   și demontaj incluse.
+                </p>
+                <p className="text-charcoal/60 text-base leading-relaxed font-light mb-6">
+                  Pentru clienții care își doresc o petrecere de lux, mergem
+                  dincolo de logistica de bază: mobilier de design, iluminat
+                  scenic, cocktail bar cu barman profesionist și un DJ care
+                  citește atmosfera invitaților. Rezultatul este o experiență
+                  coerentă, gândită în detaliu, nu doar o listă de echipamente
+                  închiriate.
                 </p>
                 <ul className="space-y-3 mb-8">
                   {[
@@ -181,6 +272,98 @@ export default function PrivatePage() {
                   <p className="text-sm text-charcoal/70 font-light">{ct}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Packages */}
+        <section className="section-padding bg-warm">
+          <div className="container-brand">
+            <p className="overline-text text-gold mb-3">
+              Cât de mare este petrecerea ta
+            </p>
+            <h2 className="font-display text-3xl text-obsidian mb-4">
+              Pachete orientative pentru evenimente private
+            </h2>
+            <p className="text-charcoal/60 text-base leading-relaxed font-light mb-8 max-w-2xl">
+              Fiecare eveniment privat primește o ofertă personalizată, dar
+              iată cum arată, în linii mari, trei niveluri de configurare în
+              funcție de numărul de invitați:
+            </p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+              {privatePackages.map((pkg) => (
+                <div
+                  key={pkg.name}
+                  className="bg-white rounded-sm border border-warm-dark p-7 h-full flex flex-col"
+                >
+                  <h3 className="font-display text-2xl text-obsidian">
+                    {pkg.name}
+                  </h3>
+                  <p className="mt-1 text-xs uppercase tracking-widest text-gold">
+                    {pkg.guests}
+                  </p>
+                  <p className="mt-3 text-sm text-charcoal/60 font-light">
+                    {pkg.content}
+                  </p>
+                  <ul className="mt-5 space-y-2.5 pt-5 border-t border-warm-dark">
+                    {pkg.items.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2 text-xs text-charcoal/70"
+                      >
+                        <span className="text-gold shrink-0 mt-0.5">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 bg-obsidian rounded-sm p-7 flex flex-col md:flex-row md:items-center gap-6">
+              <p className="text-sm text-white/50 font-light leading-relaxed md:flex-1">
+                Prețul final depinde de data evenimentului, locație, numărul de
+                invitați și serviciile alese. Cererea de ofertă și consultația
+                inițială sunt gratuite.
+              </p>
+              <Link
+                href="/cerere-oferta/"
+                data-gtm-id="page_cta_oferta_packages"
+                data-gtm-location="private_page"
+                className="shrink-0 self-start md:self-auto inline-flex items-center gap-2 px-6 py-3 bg-gold text-obsidian text-[11px] font-semibold tracking-widest uppercase rounded-full hover:bg-gold-dark transition"
+              >
+                Solicită Ofertă Personalizată
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="section-padding bg-ivory">
+          <div className="container-brand">
+            <p className="overline-text text-gold mb-3 text-center">Proces</p>
+            <h2 className="font-display text-3xl text-obsidian text-center mb-10">
+              Cum organizăm evenimentul tău privat
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-4xl mx-auto">
+              {privateProcess.map((step) => {
+                const Icon = step.icon;
+                return (
+                  <div
+                    key={step.title}
+                    className="bg-white p-6 rounded-sm text-center border border-warm-dark"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-4">
+                      <Icon size={18} className="text-gold" strokeWidth={1.5} />
+                    </div>
+                    <h3 className="font-semibold text-sm text-obsidian mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-xs text-charcoal/60 font-light leading-relaxed">
+                      {step.text}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
